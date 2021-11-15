@@ -31,8 +31,9 @@
 #define MCP9808_REG_CONFIG_ALERTPOL 0x0002   // bit 1 (pg 19)
 #define MCP9808_REG_CONFIG_ALERTMODE 0x0001  // bit 0 (pg 19)
 
-#define MCP9808_REG_MFC_ID 0x06 // manufacture id reg (pg 27)
-#define MCP9808_REG_DEVICE_ID 0x07 // device id reg (pg 28)
+#define MCP9808_REG_MFC_ID 0x06       // manufacture id reg (pg 27)
+#define MCP9808_REG_DEVICE_ID 0x07    // device id reg (pg 28)
+#define MCP9808_REG_AMBIENT_TEMP 0x05 // ambient temp reg (pg 24) 
  
 /*!
  *    @brief  Class that stores state and functions for the MCP9808.
@@ -41,11 +42,11 @@ class gMCP9808 {
 public:
 	gMCP9808(); // constructor declaration
 	bool start(uint8_t addr);
-
 	bool init();
 
-	//float getTemp_f();
-	//float getTemp_c();
+	// get ambient temperature methods
+	// float get_temp_f();
+	float get_temp_c();
 
 	// read/write methods for 8 and 16 bit registers
 	void write8(uint8_t reg, uint8_t val);

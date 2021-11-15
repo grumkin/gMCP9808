@@ -47,6 +47,27 @@ bool gMCP9808::init() {
 }
 
 /*!
+ *    @brief 
+ */
+float gMCP9808::get_temp_c() {
+	float ambient_temp = NAN;
+	uint16_t ambient_temp_reg = read16(MCP9808_REG_AMBIENT_TEMP);
+
+	if (ambient_temp_reg != 0xFFFF) {
+		ambient_temp_reg &= 0x0FFF;
+		float upper_byte = (float) (ambient_temp_reg >> 8) * 16;
+		float lower_byte = (float) (ambient_temp_reg & 0x00FF) * 0.0625;
+		if (ambient_temp_reg & 0x1000) {
+			ambient_temp = (float) 256 - (upper_byte + lower_byte);
+		} else {
+			ambient_temp = upper_byte + lower_byte;
+		}
+	}
+
+	return ambient_temp;
+}
+
+/*!
  *    @brief low level 8-bit write procedure
  */
 void gMCP9808::write8(uint8_t reg, uint8_t value) {
