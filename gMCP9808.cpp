@@ -16,6 +16,7 @@
 #endif
 
 #include "gMCP9808.h"
+#include <stdexcept>
 
 gMCP9808::gMCP9808() {}
 
@@ -65,6 +66,30 @@ float gMCP9808::get_temp_c() {
 	}
 
 	return ambient_temp;
+}
+
+/*!
+ *    @brief Gets the current resolution
+ *    @return Current resolution.
+ * 			  	00 -> 0.5 deg C
+ * 				01 -> 0.25 deg C
+ * 				10 -> 0.125 deg C
+ * 				11 -> 0.0625 deg C
+ */
+uint8_t gMCP9808::get_resolution() {
+	return read8(MCP9808_REG_RESOLUTION) & 3;
+}
+
+/*!
+ *    @brief Sets the current resolution
+ *    @param resolution
+ * 			  	00 -> 0.5 deg C
+ * 				01 -> 0.25 deg C
+ * 				10 -> 0.125 deg C
+ * 				11 -> 0.0625 deg C
+ */
+void gMCP9808::set_resolution(uint8_t resolution) {
+	write8(MCP9808_REG_RESOLUTION, resolution & 3);
 }
 
 /*!

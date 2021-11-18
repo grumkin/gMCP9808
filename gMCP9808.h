@@ -33,7 +33,8 @@
 
 #define MCP9808_REG_MFC_ID 0x06       // manufacture id reg (pg 27)
 #define MCP9808_REG_DEVICE_ID 0x07    // device id reg (pg 28)
-#define MCP9808_REG_AMBIENT_TEMP 0x05 // ambient temp reg (pg 24) 
+#define MCP9808_REG_AMBIENT_TEMP 0x05 // ambient temp reg (pg 24)
+#define MCP9808_REG_RESOLUTION 0x08   // temp res reg (pg 29) 
  
 /*!
  *    @brief  Class that stores state and functions for the MCP9808.
@@ -47,6 +48,9 @@ public:
 	// get ambient temperature methods
 	// float get_temp_f();
 	float get_temp_c();
+
+	void set_resolution(uint8_t resolution);
+	uint8_t get_resolution();
 
 	// read/write methods for 8 and 16 bit registers
 	void write8(uint8_t reg, uint8_t val);
